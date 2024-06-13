@@ -17,6 +17,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        def buildNumber = env.BUILD_NUMBER
                         sh "docker build -t henrykingiv/adservice:${buildNumber} ."
                     }
                 }
@@ -27,6 +28,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        def buildNumber = env.BUILD_NUMBER
                         sh "docker push $DOCKER_IMAGE:${buildNumber}"
                     }
                 }
@@ -37,6 +39,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        def buildNumber = env.BUILD_NUMBER
                         sh "docker rmi $DOCKER_IMAGE:${buildNumber}"
                     }
                 }
