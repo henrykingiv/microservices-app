@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        sh "docker build -t henrykingiv/adservice:latest ."
+                        sh "docker build -t henrykingiv/adservice:${buildNumber} ."
                     }
                 }
             }
@@ -27,7 +27,17 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        sh "docker push $DOCKER_IMAGE:latest"
+                        sh "docker push $DOCKER_IMAGE:${buildNumber}"
+                    }
+                }
+            }
+        }
+        
+        stage('Clean up disk') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
+                        sh "docker rmi $DOCKER_IMAGE:${buildNumber}"
                     }
                 }
             }
