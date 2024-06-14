@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = 'docker-creds'
-        DOCKER_IMAGE = 'henrykingiv/emailservice'
+        DOCKER_IMAGE = 'henrykingiv/frontend'
     }
 
     stages {
