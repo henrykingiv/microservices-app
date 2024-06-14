@@ -16,12 +16,14 @@ pipeline {
         stage('Build & Tag Docker Image') {
             steps {
                 script {
+                    dir('src') {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
                         def majorVersion = '1'
                         def buildNumber = env.BUILD_NUMBER.toInteger()
                         def formattedBuildNumber = String.format('%02d', buildNumber)
                         def imageTag = "${majorVersion}.${formattedBuildNumber}"
                         sh "docker build -t ${DOCKER_IMAGE}:${imageTag} ."
+                    }
                     }
                 }
             }
