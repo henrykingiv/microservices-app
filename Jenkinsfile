@@ -17,8 +17,11 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        def buildNumber = env.BUILD_NUMBER
-                        sh "docker build -t henrykingiv/adservice:${buildNumber} ."
+                        def majorVersion = '1'
+                        def buildNumber = env.BUILD_NUMBER.toInteger()
+                        def formattedBuildNumber = String.format('%02d', buildNumber)
+                        def imageTag = "${majorVersion}.${formattedBuildNumber}"
+                        sh "docker build -t ${DOCKER_IMAGE}:${imageTag} ."
                     }
                 }
             }
@@ -28,8 +31,11 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        def buildNumber = env.BUILD_NUMBER
-                        sh "docker push $DOCKER_IMAGE:${buildNumber}"
+                        def majorVersion = '1'
+                        def buildNumber = env.BUILD_NUMBER.toInteger()
+                        def formattedBuildNumber = String.format('%02d', buildNumber)
+                        def imageTag = "${majorVersion}.${formattedBuildNumber}"
+                        sh "docker push ${DOCKER_IMAGE}:${imageTag}"
                     }
                 }
             }
@@ -39,8 +45,11 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        def buildNumber = env.BUILD_NUMBER
-                        sh "docker rmi $DOCKER_IMAGE:${buildNumber}"
+                        def majorVersion = '1'
+                        def buildNumber = env.BUILD_NUMBER.toInteger()
+                        def formattedBuildNumber = String.format('%02d', buildNumber)
+                        def imageTag = "${majorVersion}.${formattedBuildNumber}"
+                        sh "docker rmi ${DOCKER_IMAGE}:${imageTag}"
                     }
                 }
             }
