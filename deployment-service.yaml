@@ -143,7 +143,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: henrykingiv/recommendationservice:latest
+        image: henrykingiv/recommendationservice:null
         ports:
         - containerPort: 8080
         readinessProbe:
