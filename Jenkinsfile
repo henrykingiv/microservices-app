@@ -4,6 +4,12 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = 'docker-creds'
         DOCKER_IMAGE = 'henrykingiv/checkoutservice'
+        TARGET_BRANCH = 'main'
+        REPO_URL = 'https://github.com/henrykingiv/microservices-app.git'
+        TARGET_BRANCH = 'main'
+        MANIFEST_FILE_PATH = 'home/deployment-service.yaml'
+        COMMIT_MESSAGE = 'Update manifest file'
+        CREDENTIALS_ID = 'git-creds'
     }
 
     stages {
@@ -40,11 +46,16 @@ pipeline {
                 }
             }
         }
-        stage('Checkout Main Branch') {
+        stage('Checkout Target Branch') {
             steps {
-                checkout([
-                    $class: 'GitSCM', branches: [[name:'main']], userRemoteConfigs: [[url: 'https://github.com/henrykingiv/microservices-app.git']]
-                ])
+                script {
+                    // Checkout the target branch
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "*/${env.TARGET_BRANCH}"]],
+                        userRemoteConfigs: [[url: env.REPO_URL, credentialsId: env.CREDENTIALS_ID]]
+                    ])
+                }
             }
         }
 
@@ -52,8 +63,7 @@ pipeline {
             steps {
                 script {
                     // Update the manifest file with the new image tag
-                    def TARGET_BRANCH = 'main'
-                    def manifestFile = ${TARGET_BRANCH}'home/deployment-service.yaml'
+                    def manifestFile = 'home/deployment-service.yaml'
                     sh """
                     sed -i 's|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile} 
                     """
