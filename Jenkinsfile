@@ -6,7 +6,6 @@ pipeline {
         DOCKER_IMAGE = 'henrykingiv/checkoutservice'
         TARGET_BRANCH = 'main'
         REPO_URL = 'https://github.com/henrykingiv/microservices-app.git'
-        TARGET_BRANCH = 'main'
         MANIFEST_FILE_PATH = 'home/deployment-service.yaml'
         COMMIT_MESSAGE = 'Update manifest file'
         CREDENTIALS_ID = 'git-creds'
