@@ -40,6 +40,30 @@ pipeline {
                 }
             }
         }
+        stage('Update Manifest File') {
+            steps {
+                script {
+                    // Update the manifest file with the new image tag
+                    def manifestFile = './deployment-service.yml'
+                    sh """
+                    sed -i 's|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile}
+                    """
+
+                    // Configure git user
+                    sh 'git config user.name "jenkins"'
+                    sh 'git config user.email "jenkins@example.com"'
+
+                    // Commit the changes
+                    sh "git add ${manifestFile}"
+                    sh 'git commit -m "Update image tag to ${DOCKER_IMAGE}:${env.IMAGE_TAG}"'
+
+                    // Push the changes
+                    withCredentials([usernamePassword(credentialsId: 'git-creds', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/henrykingiv/microservices-app.git HEAD:main"
+                    }
+                }
+            }
+        }
         
         stage('Clean up disk') {
             steps {
