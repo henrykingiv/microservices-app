@@ -9,6 +9,8 @@ pipeline {
         MANIFEST_FILE_PATH = '/home/deployment-service.yaml'
         COMMIT_MESSAGE = 'Update manifest file'
         CREDENTIALS_ID = 'git-creds'
+        GIT_USERNAME = 'git-username'
+        GIT_PASSWORD = 'git-password'
     }
 
     stages {
