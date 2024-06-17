@@ -97,19 +97,6 @@ pipeline {
             }
         }
         
-        stage('Clean up disk') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker') {
-                        def majorVersion = '1'
-                        def buildNumber = env.BUILD_NUMBER.toInteger()
-                        def formattedBuildNumber = String.format('%02d', buildNumber)
-                        def imageTag = "${majorVersion}.${formattedBuildNumber}"
-                        sh "docker rmi ${DOCKER_IMAGE}:${imageTag}"
-                    }
-                }
-            }
-        }
     }
     
     post {
