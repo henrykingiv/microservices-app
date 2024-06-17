@@ -67,7 +67,11 @@ pipeline {
             steps {
                 script {
                     def manifestFile = "deployment-service.yaml"
-                    def sedCommand = "sed -i 's|image: \\${DOCKER_IMAGE}:.*|image: \\${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile}"
+                    def majorVersion = '1'
+                    def buildNumber = env.BUILD_NUMBER.toInteger()
+                    def formattedBuildNumber = String.format('%02d', buildNumber)
+                    def imageTag = "${majorVersion}.${formattedBuildNumber}"
+                    def sedCommand = "sed -i 's|image: \\${DOCKER_IMAGE}:.*|image: \\${DOCKER_IMAGE}:${imageTag}|' ${manifestFile}"
                     
                     // Print the sed command for debugging
                     sh "echo ${sedCommand}"
