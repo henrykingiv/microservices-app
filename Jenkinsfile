@@ -75,27 +75,34 @@ pipeline {
         stage('Update Manifest File') {
             steps {
                 script {
-                    // Update the manifest file with the new image tag
                     def manifestFile = "deployment-service.yaml"
-                    sh """
-                    sed -i 's|image: \${DOCKER_IMAGE}:.*|image: \${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile} 
-                    """
-
+                    def sedCommand = "sed -i 's|image: \\${DOCKER_IMAGE}:.*|image: \\${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile}"
+                    
+                    // Print the sed command for debugging
+                    sh "echo ${sedCommand}"
+                    
+                    // Execute the sed command
+                    sh sedCommand
+                    
+                    // Check if the file was modified
+                    sh "git status"
+                    
                     // Configure git user
                     sh 'git config user.name "jenkins"'
                     sh 'git config user.email "jenkins@example.com"'
-
+        
                     // Commit the changes
                     sh "git add ${manifestFile}"
-                    sh "git commit -m 'Update image tag to ${DOCKER_IMAGE}:${env.IMAGE_TAG}'"
-
+                    sh "git commit -m 'Update image tag to ${env.DOCKER_IMAGE}:${env.IMAGE_TAG}'"
+        
                     // Push the changes
                     withCredentials([usernamePassword(credentialsId: 'git-creds', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/henrykingiv/microservices-app.git HEAD:main"
+                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/henrykingiv/microservices-app.git main"
                     }
                 }
             }
         }
+
         
     }
     
