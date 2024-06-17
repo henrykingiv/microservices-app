@@ -6,7 +6,7 @@ pipeline {
         DOCKER_IMAGE = 'henrykingiv/checkoutservice'
         TARGET_BRANCH = 'main'
         REPO_URL = 'https://github.com/henrykingiv/microservices-app.git'
-        MANIFEST_FILE_PATH = 'home/deployment-service.yaml'
+        MANIFEST_FILE_PATH = '/home/deployment-service.yaml'
         COMMIT_MESSAGE = 'Update manifest file'
         CREDENTIALS_ID = 'git-creds'
     }
@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script {
                     // Update the manifest file with the new image tag
-                    def manifestFile = 'home/deployment-service.yaml'
+                    def manifestFile = '/home/deployment-service.yaml'
                     sh """
                     sed -i 's|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile} 
                     """
