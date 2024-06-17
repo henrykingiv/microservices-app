@@ -297,7 +297,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: henrykingiv/paymentservice:null
+        image: henrykingiv/paymentservice:1.03
         ports:
         - containerPort: 50051
         env:
