@@ -28,7 +28,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/emailservice:latest
+        image: henrykingiv/emailservice:null
         ports:
         - containerPort: 8080
         env:
