@@ -52,7 +52,8 @@ pipeline {
             steps {
                 script {
                     // Update the manifest file with the new image tag
-                    def manifestFile = 'home/deployment-service.yaml' "HEAD:main"
+                    def TARGET_BRANCH = 'HEAD:main'
+                    def manifestFile = ${TARGET_BRANCH}'home/deployment-service.yaml'
                     sh """
                     sed -i 's|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile} 
                     """
