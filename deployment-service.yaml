@@ -548,7 +548,7 @@ spec:
       serviceAccountName: default
       containers:
       - name: server
-        image: henrykingiv/shippingservice:latest
+        image: henrykingiv/shippingservice:null
         ports:
         - containerPort: 50051
         env:
