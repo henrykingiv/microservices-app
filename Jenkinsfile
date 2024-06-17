@@ -45,18 +45,18 @@ pipeline {
                 }
             }
         }
-        stage('Checkout Target Branch') {
-            steps {
-                script {
-                    // Checkout the target branch
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${env.TARGET_BRANCH}"]],
-                        userRemoteConfigs: [[url: env.REPO_URL, credentialsId: env.CREDENTIALS_ID]]
-                    ])
-                }
-            }
-        }
+        // stage('Checkout Target Branch') {
+        //     steps {
+        //         script {
+        //             // Checkout the target branch
+        //             checkout([
+        //                 $class: 'GitSCM',
+        //                 branches: [[name: "*/${env.TARGET_BRANCH}"]],
+        //                 userRemoteConfigs: [[url: env.REPO_URL, credentialsId: env.CREDENTIALS_ID]]
+        //             ])
+        //         }
+        //     }
+        // }
 
         stage('Update Manifest File') {
             steps {
