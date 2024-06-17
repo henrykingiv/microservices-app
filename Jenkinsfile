@@ -40,6 +40,13 @@ pipeline {
                 }
             }
         }
+        stage('Checkout Main Branch') {
+            steps {
+                checkout([
+                    $class: 'GitSCM', branches: [[name:'main']], userRemoteConfigs: [[url: 'https://github.com/henrykingiv/microservices-app.git']]
+                ])
+            }
+        }
 
         stage('Update Manifest File') {
             steps {
@@ -47,7 +54,7 @@ pipeline {
                     // Update the manifest file with the new image tag
                     def manifestFile = 'home/deployment-service.yaml'
                     sh """
-                    sed -i 's|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile}
+                    sed -i 's|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${env.IMAGE_TAG}|' ${manifestFile} 
                     """
 
                     // Configure git user
