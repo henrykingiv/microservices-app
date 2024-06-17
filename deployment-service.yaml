@@ -81,7 +81,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: henrykingiv/checkoutservice:latest
+          image: henrykingiv/checkoutservice:null
           ports:
           - containerPort: 5050
           readinessProbe:
