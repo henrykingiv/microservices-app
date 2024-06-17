@@ -465,7 +465,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/loadgenerator:null
+        image: henrykingiv/loadgenerator:1.02
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
