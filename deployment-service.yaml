@@ -349,7 +349,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: henrykingiv/productcatalogservice:null
+        image: henrykingiv/productcatalogservice:1.02
         ports:
         - containerPort: 3550
         env:
