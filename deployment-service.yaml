@@ -201,7 +201,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/productcatalogservice:1.01
+        image: henrykingiv/productcatalogservice:1.02
         ports:
         - containerPort: 3550
         env:
