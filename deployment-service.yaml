@@ -276,7 +276,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: henrykingiv/checkoutservice:2.02
+          image: henrykingiv/checkoutservice:2.01
           ports:
           - containerPort: 5050
           readinessProbe:
