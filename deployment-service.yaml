@@ -438,7 +438,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/cartservice:1.01
+        image: henrykingiv/cartservice:1.02
         ports:
         - containerPort: 7070
         env:
