@@ -99,7 +99,7 @@ pipeline {
         
                     // Commit the changes
                     sh "git add ${manifestFile}"
-                    sh "git commit -m 'Update image tag to ${env.DOCKER_IMAGE}:${env.IMAGE_TAG}'"
+                    sh "git commit -m 'Update image tag to ${env.DOCKER_IMAGE}:${imageTag}'"
         
                     // Push the changes
                     withCredentials([usernamePassword(credentialsId: 'git-creds', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
