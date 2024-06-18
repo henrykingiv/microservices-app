@@ -869,7 +869,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: henrykingiv/recommendationservice:1.02
+          image: henrykingiv/recommendationservice:1.01
           ports:
             - containerPort: 8080
           readinessProbe:
