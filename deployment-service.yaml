@@ -951,7 +951,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/adservice:1.01
+        image: henrykingiv/adservice:1.02
         ports:
         - containerPort: 9555
         env:
