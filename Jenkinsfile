@@ -143,7 +143,6 @@ pipeline {
                     }
                 }
             }
-
         }
         stage('Clean up disk') {
             steps {
