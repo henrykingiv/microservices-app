@@ -110,7 +110,7 @@ pipeline {
             }
         }
 
-        stage('Update Manifest File') {
+        stage('Update Prod Manifest File') {
             steps {
                 script {
                     def manifestFile = "deployment-service.yaml"
