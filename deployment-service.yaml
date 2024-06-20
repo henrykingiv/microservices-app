@@ -361,7 +361,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/shippingservice:1.01
+        image: henrykingiv/shippingservice:1.03
         ports:
         - containerPort: 50051
         env:
