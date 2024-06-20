@@ -15,12 +15,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build & Tag Docker Image') {
             steps {
                 script {
