@@ -143,7 +143,7 @@ pipeline {
                     }
                 }
             }
-        
+        }
         stage('Clean up disk') {
             steps {
                 script {
@@ -157,7 +157,7 @@ pipeline {
                 }
             }
         }
-    }
+    
     
     post {
         always {
