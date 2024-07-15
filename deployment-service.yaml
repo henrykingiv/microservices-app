@@ -1,17 +1,11 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: stage-boutique
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: currencyservice
   labels:
     app: currencyservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -37,7 +31,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/currencyservice:1.03
+        image: gcr.io/google-samples/microservices-demo/currencyservice:v0.10.0
         ports:
         - name: grpc
           containerPort: 7000
@@ -66,7 +60,7 @@ metadata:
   name: currencyservice
   labels:
     app: currencyservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -80,7 +74,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: currencyservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -88,7 +82,7 @@ metadata:
   name: loadgenerator
   labels:
     app: loadgenerator
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -149,7 +143,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/loadgenerator:1.03
+        image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.10.0
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -167,7 +161,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: loadgenerator
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -175,7 +169,7 @@ metadata:
   name: productcatalogservice
   labels:
     app: productcatalogservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -201,7 +195,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/productcatalogservice:1.03
+        image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.10.0
         ports:
         - containerPort: 3550
         env:
@@ -229,7 +223,7 @@ metadata:
   name: productcatalogservice
   labels:
     app: productcatalogservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -243,7 +237,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: productcatalogservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -251,7 +245,7 @@ metadata:
   name: checkoutservice
   labels:
     app: checkoutservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -276,7 +270,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: henrykingiv/checkoutservice:2.03
+          image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.10.0
           ports:
           - containerPort: 5050
           readinessProbe:
@@ -314,7 +308,7 @@ metadata:
   name: checkoutservice
   labels:
     app: checkoutservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -328,7 +322,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: checkoutservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -336,7 +330,7 @@ metadata:
   name: shippingservice
   labels:
     app: shippingservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -361,7 +355,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/shippingservice:1.03
+        image: gcr.io/google-samples/microservices-demo/shippingservice:v0.10.0
         ports:
         - containerPort: 50051
         env:
@@ -390,7 +384,7 @@ metadata:
   name: shippingservice
   labels:
     app: shippingservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -404,7 +398,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: shippingservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -412,7 +406,7 @@ metadata:
   name: cartservice
   labels:
     app: cartservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -438,7 +432,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/cartservice:1.03
+        image: gcr.io/google-samples/microservices-demo/cartservice:v0.10.0
         ports:
         - containerPort: 7070
         env:
@@ -467,7 +461,7 @@ metadata:
   name: cartservice
   labels:
     app: cartservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -481,7 +475,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: cartservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -489,7 +483,7 @@ metadata:
   name: redis-cart
   labels:
     app: redis-cart
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -544,7 +538,7 @@ metadata:
   name: redis-cart
   labels:
     app: redis-cart
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -560,7 +554,7 @@ metadata:
   name: emailservice
   labels:
     app: emailservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -586,7 +580,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/emailservice:1.03
+        image: gcr.io/google-samples/microservices-demo/emailservice:v0.10.0
         ports:
         - containerPort: 8080
         env:
@@ -616,7 +610,7 @@ metadata:
   name: emailservice
   labels:
     app: emailservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -630,7 +624,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: emailservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -638,7 +632,7 @@ metadata:
   name: paymentservice
   labels:
     app: paymentservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -664,7 +658,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/paymentservice:1.03
+        image: gcr.io/google-samples/microservices-demo/paymentservice:v0.10.0
         ports:
         - containerPort: 50051
         env:
@@ -692,7 +686,7 @@ metadata:
   name: paymentservice
   labels:
     app: paymentservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -706,7 +700,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: paymentservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -714,7 +708,7 @@ metadata:
   name: frontend
   labels:
     app: frontend
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -741,7 +735,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: henrykingiv/frontend:1.04
+          image: gcr.io/google-samples/microservices-demo/frontend:v0.10.0
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -805,7 +799,7 @@ metadata:
   name: frontend
   labels:
     app: frontend
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -821,7 +815,7 @@ metadata:
   name: frontend-external
   labels:
     app: frontend
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: NodePort
   selector:
@@ -835,7 +829,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: frontend
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -843,7 +837,7 @@ metadata:
   name: recommendationservice
   labels:
     app: recommendationservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -869,7 +863,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: henrykingiv/recommendationservice:1.03
+          image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.10.0
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -903,7 +897,7 @@ metadata:
   name: recommendationservice
   labels:
     app: recommendationservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -917,7 +911,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: recommendationservice
-  namespace: stage-boutique
+  namespace: istio
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -925,7 +919,7 @@ metadata:
   name: adservice
   labels:
     app: adservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   selector:
     matchLabels:
@@ -951,7 +945,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/adservice:1.05
+        image: gcr.io/google-samples/microservices-demo/adservice:v0.10.0
         ports:
         - containerPort: 9555
         env:
@@ -981,7 +975,7 @@ metadata:
   name: adservice
   labels:
     app: adservice
-  namespace: stage-boutique
+  namespace: istio
 spec:
   type: ClusterIP
   selector:
@@ -995,5 +989,5 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: adservice
-  namespace: stage-boutique
+  namespace: istio
 # [END gke_release_kubernetes_manifests_microservices_demo]
