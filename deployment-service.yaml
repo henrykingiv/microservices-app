@@ -31,7 +31,7 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: henrykingiv/currencyservice:1.01
+        image: henrykingiv/currencyservice:1.03
         ports:
         - name: grpc
           containerPort: 7000
