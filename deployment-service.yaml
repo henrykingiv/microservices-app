@@ -735,7 +735,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: henrykingiv/frontend:1.01
+          image: henrykingiv/frontend:1.02
           ports:
             - containerPort: 8080
           readinessProbe:
